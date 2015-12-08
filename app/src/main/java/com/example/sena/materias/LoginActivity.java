@@ -98,17 +98,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
 
         cargar_db();
-
-        DBManager dbManager = new DBManager(this);
-        Cursor cursorLstAprendices = dbManager.cursorConsultaAsignaturas();
-        //arreglo con los campos de la bd
-        String[] from = new String[]{"nombre"};
-        //arreglo con los id del layout
-        int[] to = new int[]{R.id.txtNombre};
-        SimpleCursorAdapter simpleAdapter = new SimpleCursorAdapter(this,R.layout.lista,cursorLstAprendices,from,to,0);
-        //SimpleCursorAdapter simpleAdapter = new SimpleCursorAdapter(this,R.layout.lista,cursorLstAprendices,from,to,0);
-        ListView lstViewAsignaturas = (ListView)findViewById(R.id.listViewLstAAsignaturas);
-        lstViewAsignaturas.setAdapter(simpleAdapter);
     }
 
     private void cargar_db() {
