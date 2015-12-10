@@ -16,37 +16,43 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Documento de Identidad"/>
+        android:text="Documento de Identidad"
+        android:labelFor="@+id/edtTextIdentity"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtTextIdentity"
+        android:id="@id/edtTextIdentity"
         android:inputType="number" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contraseña"/>
+        android:text="Contraseña"
+        android:labelFor="@+id/edtTextPassword"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtTextPassword"
+        android:id="@id/edtTextPassword"
         android:inputType="textPassword" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="?android:buttonBarStyle">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnLogin"
             android:text="Iniciar Sesión"
             android:layout_weight="1"
-            android:onClick="iniciar_sesion"/>
+            android:onClick="iniciar_sesion"
+            style="?android:buttonBarButtonStyle"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnRegister"
             android:text="Registrarse"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="registrar_usuario"
+            style="?android:buttonBarButtonStyle"/>
     </LinearLayout>
 </LinearLayout>

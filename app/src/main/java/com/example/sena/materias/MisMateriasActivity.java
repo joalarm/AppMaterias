@@ -1,6 +1,7 @@
 package com.example.sena.materias;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -31,6 +32,12 @@ public class MisMateriasActivity extends AppCompatActivity implements Encabezado
 
         dbManager = new DBManager(this);
         spref = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        if(spref.getInt("id",-1)==-1)
+        {
+            Intent intent = new Intent(MisMateriasActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         if(spref.getInt("rol",-1)==1) {
             //cargar_materias_alumno();
             fab.setOnClickListener(new View.OnClickListener() {

@@ -58,7 +58,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } catch (IOException e) {
 
                 //throw new Error(e.getMessage().toString());
-
+                System.out.println(e.getMessage().toString());
             }
         }
 

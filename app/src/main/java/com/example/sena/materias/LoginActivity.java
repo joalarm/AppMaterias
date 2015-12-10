@@ -88,6 +88,18 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(android.support.v7.appcompat.R.anim.abc_fade_in, R.anim.abc_fade_out);
             finish();
+        } else {
+            Toast.makeText(this,"El usuario no existe",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void registrar_usuario(View v){
+        EditText identity = (EditText) findViewById(R.id.edtTextIdentity);
+        EditText password = (EditText) findViewById(R.id.edtTextPassword);
+        Intent intent = new Intent(LoginActivity.this,RegistroActivity.class);
+        intent.putExtra("identity",identity.getText().toString());
+        intent.putExtra("password", password.getText().toString());
+        startActivity(intent);
+        overridePendingTransition(android.support.v7.appcompat.R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
 }

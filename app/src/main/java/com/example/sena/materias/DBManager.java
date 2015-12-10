@@ -22,13 +22,15 @@ public class DBManager {
     {
         helper = new DataBaseHelper(context);
         db = helper.getWritableDatabase();
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
-    public long insertarUsuario(int id, String nombre, String apellido, String email,
+    public long insertarUsuario(int id, String password, String nombre, String apellido, String email,
                                 String f_nacimiento, int programa, int rol, File foto )
     {
         ContentValues values = new ContentValues();
         values.put("id", id);
+        values.put("contraseña", password);
         values.put("nombre", nombre);
         values.put("apellido", apellido);
         values.put("email", email);
@@ -104,6 +106,20 @@ public class DBManager {
         String selection = "id=? and contraseña=?";
         String [] selectionArgs = new String[]{id, contrasena};
         return db.query(tableName,null,selection,selectionArgs,null,null,null);
+    }
+
+    public Cursor consultaProgramas()
+    {
+        String tableName = "tbl_programa";
+        String [] columns = new String[] {"id as _id", "nombre"};
+        return db.query(tableName,columns,null,null,null,null,null);
+    }
+
+    public Cursor consultaRoles()
+    {
+        String tableName = "tbl_rol";
+        String [] columns = new String[] {"id as _id", "nombre"};
+        return db.query(tableName,columns,null,null,null,null,null);
     }
     /*@NonNull
     private ContentValues getContentValues(String [] datos) {
