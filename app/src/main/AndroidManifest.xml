@@ -15,12 +15,23 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MisMateriasActivity"
+            android:label="@string/title_activity_mis_materias"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".InscripcionActivity"
+            android:label="@string/title_activity_inscripcion"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

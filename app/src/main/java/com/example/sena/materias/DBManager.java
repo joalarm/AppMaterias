@@ -8,32 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import java.io.File;
+
 /**
  * Created by Joalar on 07/11/2015.
  */
 public class DBManager {
-    public final static String nombreTabla = "Aprendices";
-    public final static String cnId = "_id";
-    public final static String cnNombre = "Nombre";
-    public final static String cnApellido = "Apellido";
-    public final static String cnDirección = "Dirección";
-    public final static String cnEdad = "Edad";
-
-    /* create table Aprendices (
-        _ID integer primary key autoincrement,
-        Nombre text not null,
-        Apellido text not null,
-        Direccion text not null,
-        Edad text );
-     */
-
-    public final static String crearTabla =
-            "create table "+nombreTabla+" ("
-                    +cnId+" integer primary key autoincrement,"
-                    +cnNombre+" text not null,"
-                    +cnApellido+" text not null,"
-                    +cnDirección+" text not null,"
-                    +cnEdad+" text);";
 
     private DataBaseHelper helper;
     private SQLiteDatabase db;
@@ -44,15 +24,92 @@ public class DBManager {
         db = helper.getWritableDatabase();
     }
 
-    public long insertar(String Nombre, String Apellido, String Dirección, String Edad)
+    public long insertarUsuario(int id, String nombre, String apellido, String email,
+                                String f_nacimiento, int programa, int rol, File foto )
     {
-        ContentValues values = getContentValues(Nombre, Apellido, Dirección, Edad);
-        return db.insert(nombreTabla,null,values);
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("nombre", nombre);
+        values.put("apellido", apellido);
+        values.put("email", email);
+        values.put("fecha_nacimiento", f_nacimiento);
+        values.put("programa", programa);
+        values.put("rol", rol);
+        return db.insert("tbl_usuario",null,values);
     }
 
-    @NonNull
-    private ContentValues getContentValues(String Nombre, String Apellido, String Dirección, String Edad) {
+    public long insertarAsignatura(int id, String nombre, int profesor, String aula,
+                              int programa)
+    {
         ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("nombre", nombre);
+        values.put("profesor", profesor);
+        values.put("aula", aula);
+        values.put("programa", programa);
+        return db.insert("tbl_asignatura",null,values);
+    }
+
+    public long insertarAsistencia(String fecha, Boolean asistio, int asignatura,
+                              int usuario)
+    {
+        ContentValues values = new ContentValues();
+        values.put("fecha", fecha);
+        values.put("asistio", asistio);
+        values.put("asignatura", asignatura);
+        values.put("usuario", usuario);
+        return db.insert("tbl_asistencia",null,values);
+    }
+
+    public long insertarInscripcion(int usuario, int asignatura, int nota)
+    {
+        ContentValues values = new ContentValues();
+        values.put("asignatura", asignatura);
+        values.put("usuario", usuario);
+        values.put("nota", nota);
+        return db.insert("tbl_inscripcion",null,values);
+    }
+
+    public long insertarNota(double nota1, double nota2, double nota3)
+    {
+        ContentValues values = new ContentValues();
+        values.put("nota1", nota1);
+        values.put("nota2", nota2);
+        values.put("nota3", nota3);
+        return db.insert("tbl_nota",null,values);
+    }
+
+    public long insertarPrograma(int id, String nombre, String duracion)
+    {
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("nombre", nombre);
+        values.put("duracion", duracion);
+        return db.insert("tbl_programa",null,values);
+    }
+
+
+    public Cursor consultaAsignaturasProfesor(int id)
+    {
+        String tableName = "asignaturas";
+        String [] columns = new String[] {"id as _id", "nombre"};
+        String selection = "profesor = ?";
+        String [] selectionArgs = new String[]{String.valueOf(id)};
+        return db.query(tableName, columns, selection, selectionArgs, null, null, null);
+    }
+
+    public Cursor consultaUsuarioLogin(String id, String contrasena)
+    {
+        String tableName = "usuarios";
+        String selection = "id=? and contraseña=?";
+        String [] selectionArgs = new String[]{id, contrasena};
+        return db.query(tableName,null,selection,selectionArgs,null,null,null);
+    }
+    /*@NonNull
+    private ContentValues getContentValues(String [] datos) {
+        ContentValues values = new ContentValues();
+        for(int i=0; i<datos.length; i++)
+        {
         values.put(cnNombre,Nombre);
         values.put(cnApellido,Apellido);
         values.put(cnDirección,Dirección);
@@ -60,11 +117,7 @@ public class DBManager {
         return values;
     }
 
-    public Cursor cursorConsultaAsignaturas()
-    {
-        String[] columns = new String[]{"id as _id", "nombre"};
-        return db.query("tbl_asignatura",columns,null,null,null,null,null);
-    }
+
 
     public Cursor cursorConsultaAprendices(String parametro, String valor)
     {
@@ -82,5 +135,5 @@ public class DBManager {
         ContentValues values = new ContentValues();
         values.put(columnav, valor);
         return db.update(nombreTabla,values,columnap+"=?",new String[]{parametro});
-    }
+    }*/
 }
