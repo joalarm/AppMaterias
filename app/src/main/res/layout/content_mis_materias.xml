@@ -19,7 +19,18 @@
         android:id="@+id/lstMaterias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"/>
-
-
+        android:layout_margin="15dp"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lytSinMaterias">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No tiene materias Asociadas"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            style="@style/TextAppearance.AppCompat.Title" />
+    </RelativeLayout>
 </LinearLayout>
