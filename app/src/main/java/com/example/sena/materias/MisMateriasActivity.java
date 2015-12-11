@@ -39,7 +39,7 @@ public class MisMateriasActivity extends AppCompatActivity implements Encabezado
             finish();
         }
         if(spref.getInt("rol",-1)==1) {
-            //cargar_materias_alumno();
+            cargar_materias_alumno();
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -66,6 +66,15 @@ public class MisMateriasActivity extends AppCompatActivity implements Encabezado
     public void cargar_materias_profesor(){
         cursorLstMaterias = dbManager.consultaAsignaturasProfesor(spref.getInt("id",0));
         String [] from = new String[] {"nombre", "_id"};
+        int [] to = new int[] {R.id.txt1, R.id.txt2};
+        simpleAdapter = new SimpleCursorAdapter(this, R.layout.listamaterias, cursorLstMaterias,from, to, 0);
+        lstViewMaterias = (ListView) findViewById(R.id.lstMaterias);
+        lstViewMaterias.setAdapter(simpleAdapter);
+    }
+
+    public void cargar_materias_alumno(){
+        cursorLstMaterias = dbManager.consultaInscripciones(spref.getInt("id",0));
+        String [] from = new String[] {"nombre_asignatura", "nombre_profesor"};
         int [] to = new int[] {R.id.txt1, R.id.txt2};
         simpleAdapter = new SimpleCursorAdapter(this, R.layout.listamaterias, cursorLstMaterias,from, to, 0);
         lstViewMaterias = (ListView) findViewById(R.id.lstMaterias);

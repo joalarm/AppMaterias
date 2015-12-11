@@ -121,6 +121,15 @@ public class DBManager {
         String [] columns = new String[] {"id as _id", "nombre"};
         return db.query(tableName,columns,null,null,null,null,null);
     }
+
+    public Cursor consultaInscripciones(int id)
+    {
+        String tableName = "inscripciones";
+        String [] columns = new String[] {"id as _id", "nombre_asignatura", "nombre_profesor"};
+        String selection = "usuario=?";
+        String [] selectionArgs = new String[]{String.valueOf(id)};
+        return db.query(tableName,columns,selection,selectionArgs,null,null,null);
+    }
     /*@NonNull
     private ContentValues getContentValues(String [] datos) {
         ContentValues values = new ContentValues();
